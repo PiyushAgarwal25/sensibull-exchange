@@ -49,10 +49,18 @@ try {
   console.log('Cron job started...');
 
   const openOrders = await orderModel.find({ order_status: 'open' });
+  const updatePromises = openOrders.map((order) => updateFilledQuantity(order));
 
-  for (const order of openOrders) {
-    await updateFilledQuantity(order);
-  }
+  const results = await Promise.allSettled(updatePromises);
+
+    // Handle the results of the promises
+    // results.forEach((result) => {
+    //   if (result.status === 'fulfilled') {
+    //     console.log('Order updated successfully:', result.value);
+    //   } else {
+    //     console.error('Failed to update order:', result.reason);
+    //   }
+    // });
 
   console.log('Cron job completed.');
 } catch (error) {
