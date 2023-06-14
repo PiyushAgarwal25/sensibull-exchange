@@ -114,7 +114,7 @@ const modifyOrder = async (req,res)=>{
     }
 
     if(order.filled_quantity>quantity){
-      return res.status(400).send({error:"Requested quantity cannot be modified !"})
+      return res.status(200).send({error:"Requested quantity cannot be modified !"})
     }
 
     order.request_quantity = quantity;
