@@ -4,6 +4,7 @@ const orders = require("./routes/order");
 const connectToMongo = require("./db/dbconnect");
 const { v1: uuidv1 } = require('uuid');
 const { cronJob } = require("./controllers/order");
+const checkXAuthToken = require("./middleware/checkAuthToken");
 
 const timestampUuid = uuidv1();
 console.log(timestampUuid);
@@ -15,7 +16,7 @@ connectToMongo();
 cronJob.start();
 
 
-app.use("/api/order",orders);
+app.use("/api/order",checkXAuthToken,orders);
 
 app.listen(PORT,()=>{
     console.log(`App started at PORT: ${PORT}`)
