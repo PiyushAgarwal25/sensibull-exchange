@@ -1,8 +1,10 @@
 const express = require("express");
 const { createOrder,modifyOrder,deleteOrder,getOrderStatus} = require("../controllers/order");
+const checkXAuthToken = require("../middleware/checkAuthToken");
 const router = express.Router();
 
 router.use(express.json());
+router.use(checkXAuthToken);
 
 // to create order
 router.post("/place",createOrder);

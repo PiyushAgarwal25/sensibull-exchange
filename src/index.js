@@ -16,7 +16,7 @@ connectToMongo();
 cronJob.start();
 
 
-app.use("/api/order",checkXAuthToken,orders);
+app.use("/api/order",orders);
 
 app.listen(PORT,()=>{
     console.log(`App started at PORT: ${PORT}`)
